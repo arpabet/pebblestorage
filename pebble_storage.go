@@ -28,21 +28,26 @@ import (
 )
 
 type pebbleStorage struct {
+	name  string
 	db     *pebble.DB
 }
 
-func New(conf *PebbleConfig) (storage.ManagedStorage, error) {
+func New(name string, conf *PebbleConfig) (storage.ManagedStorage, error) {
 
 	db, err := OpenDatabase(conf)
 	if err != nil {
 		return nil, err
 	}
 
-	return &pebbleStorage {db}, nil
+	return &pebbleStorage {name: name, db: db}, nil
 }
 
-func FromDB(db *pebble.DB) storage.ManagedStorage {
-	return &pebbleStorage {db}
+func FromDB(name string, db *pebble.DB) storage.ManagedStorage {
+	return &pebbleStorage {name: name, db: db}
+}
+
+func (t* pebbleStorage) BeanName() string {
+	return t.name
 }
 
 func (t* pebbleStorage) Destroy() error {
