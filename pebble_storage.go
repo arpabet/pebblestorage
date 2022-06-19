@@ -70,6 +70,10 @@ func (t* pebbleStorage) CompareAndSet() *storage.CompareAndSetOperation {
 	return &storage.CompareAndSetOperation{Storage: t}
 }
 
+func (t *pebbleStorage) Increment() *storage.IncrementOperation {
+	return &storage.IncrementOperation{Storage: t, Initial: 0, Delta: 1}
+}
+
 func (t* pebbleStorage) Remove() *storage.RemoveOperation {
 	return &storage.RemoveOperation{Storage: t}
 }
@@ -84,6 +88,33 @@ func (t* pebbleStorage) GetRaw(prefix, key []byte, ttlPtr *int, versionPtr *int6
 
 func (t* pebbleStorage) SetRaw(prefix, key, value []byte, ttlSeconds int) error {
 	return t.db.Set(append(prefix, key...), value, WriteOptions)
+}
+
+func (t *pebbleStorage) DoInTransaction(prefix, key []byte, cb func(entry *storage.RawEntry) bool) error {
+
+	rawKey := append(prefix, key...)
+
+	rawEntry := &storage.RawEntry {
+		Key: rawKey,
+		Ttl: storage.NoTTL,
+		Version: 0,
+	}
+
+	value, closer, err := t.db.Get(append(prefix, key...))
+	if err != nil {
+		if err != pebble.ErrNotFound {
+			return err
+		}
+	}
+	defer closer.Close()
+
+	rawEntry.Value = value
+
+	if !cb(rawEntry) {
+		return ErrCanceled
+	}
+
+	return t.db.Set(rawKey, rawEntry.Value, WriteOptions)
 }
 
 func (t* pebbleStorage) CompareAndSetRaw(bucket, key, value []byte, ttlSeconds int, version int64) (bool, error) {

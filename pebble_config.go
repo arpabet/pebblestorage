@@ -31,7 +31,8 @@ var (
 
 	WriteOptions = pebble.NoSync
 
-	ErrInvalidFormat = errors.New("invalid format")
+	ErrInvalidFormat    = errors.New("invalid format")
+	ErrCanceled         = errors.New("operation was canceled")
 )
 
 
