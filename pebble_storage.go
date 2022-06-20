@@ -36,9 +36,9 @@ type pebbleStorage struct {
 	db     *pebble.DB
 }
 
-func New(name string, conf *PebbleConfig) (storage.ManagedStorage, error) {
+func New(name string, dataDir string, opts *pebble.Options) (storage.ManagedStorage, error) {
 
-	db, err := OpenDatabase(conf)
+	db, err := OpenDatabase(dataDir, opts)
 	if err != nil {
 		return nil, err
 	}

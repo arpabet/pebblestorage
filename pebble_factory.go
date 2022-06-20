@@ -26,7 +26,7 @@ import (
 	"github.com/cockroachdb/pebble"
 )
 
-func OpenDatabase(conf *PebbleConfig) (*pebble.DB, error) {
-	return pebble.Open(conf.DataDir, &conf.Options)
+func OpenDatabase(dataDir string, opts *pebble.Options) (*pebble.DB, error) {
+	return pebble.Open(dataDir, opts)
 }
 

@@ -35,10 +35,3 @@ var (
 	ErrCanceled         = errors.New("operation was canceled")
 )
 
-
-type PebbleConfig struct {
-	DataDir    string
-	Options    pebble.Options
-}
-
-
