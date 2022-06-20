@@ -82,25 +82,23 @@ func (t* pebbleStorage) Enumerate() *storage.EnumerateOperation {
 	return &storage.EnumerateOperation{Storage: t}
 }
 
-func (t* pebbleStorage) GetRaw(prefix, key []byte, ttlPtr *int, versionPtr *int64, required bool) ([]byte, error) {
-	return t.getImpl(prefix, key, required)
+func (t* pebbleStorage) GetRaw(key []byte, ttlPtr *int, versionPtr *int64, required bool) ([]byte, error) {
+	return t.getImpl(key, required)
 }
 
-func (t* pebbleStorage) SetRaw(prefix, key, value []byte, ttlSeconds int) error {
-	return t.db.Set(append(prefix, key...), value, WriteOptions)
+func (t* pebbleStorage) SetRaw(key, value []byte, ttlSeconds int) error {
+	return t.db.Set(key, value, WriteOptions)
 }
 
-func (t *pebbleStorage) DoInTransaction(prefix, key []byte, cb func(entry *storage.RawEntry) bool) error {
-
-	rawKey := append(prefix, key...)
+func (t *pebbleStorage) DoInTransaction(key []byte, cb func(entry *storage.RawEntry) bool) error {
 
 	rawEntry := &storage.RawEntry {
-		Key: rawKey,
+		Key: key,
 		Ttl: storage.NoTTL,
 		Version: 0,
 	}
 
-	value, closer, err := t.db.Get(append(prefix, key...))
+	value, closer, err := t.db.Get(key)
 	if err != nil {
 		if err != pebble.ErrNotFound {
 			return err
@@ -114,20 +112,20 @@ func (t *pebbleStorage) DoInTransaction(prefix, key []byte, cb func(entry *stora
 		return ErrCanceled
 	}
 
-	return t.db.Set(rawKey, rawEntry.Value, WriteOptions)
+	return t.db.Set(key, rawEntry.Value, WriteOptions)
 }
 
-func (t* pebbleStorage) CompareAndSetRaw(bucket, key, value []byte, ttlSeconds int, version int64) (bool, error) {
-	return true, t.SetRaw(bucket, key, value, ttlSeconds)
+func (t* pebbleStorage) CompareAndSetRaw(key, value []byte, ttlSeconds int, version int64) (bool, error) {
+	return true, t.SetRaw(key, value, ttlSeconds)
 }
 
-func (t* pebbleStorage) RemoveRaw(prefix, key []byte) error {
-	return t.db.Delete(append(prefix, key...), WriteOptions)
+func (t* pebbleStorage) RemoveRaw(key []byte) error {
+	return t.db.Delete(key, WriteOptions)
 }
 
-func (t* pebbleStorage) getImpl(prefix, key []byte, required bool) ([]byte, error) {
+func (t* pebbleStorage) getImpl(key []byte, required bool) ([]byte, error) {
 
-	value, closer, err := t.db.Get(append(prefix, key...))
+	value, closer, err := t.db.Get(key)
 	if err != nil {
 		if err == pebble.ErrNotFound {
 			if required {

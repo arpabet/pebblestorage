@@ -423,8 +423,8 @@ github.com/yuin/goldmark v1.3.5/go.mod h1:mwnBkeHKe2W/ZEtQ+71ViKU8L12m81fl3OWwC1
 github.com/yuin/goldmark v1.4.1/go.mod h1:mwnBkeHKe2W/ZEtQ+71ViKU8L12m81fl3OWwC1Zlc8k=
 go.arpabet.com/beans v1.0.0 h1:5ZjkNAebWT9F+k9bmcBcmpDZ0hhW4zP2j0TYebXz6/w=
 go.arpabet.com/beans v1.0.0/go.mod h1:pHDKR8M53vxeqUOOCCy+hE0BS2jZhbTL9Iq9fA6JLM0=
-go.arpabet.com/storage v1.4.1 h1:N80JXRrvlrC2ailo3Iofk3/kTBKQUQZL7FS0nYoTIYo=
-go.arpabet.com/storage v1.4.1/go.mod h1:HrC5vpN2mPbpTpTUGauL9Uv8e+atgVwOFHPzrfXAygQ=
+go.arpabet.com/storage v1.5.0 h1:eSDVcv2Ycm4KG3pwJxKs1BzXbDxXw6D6qU9iXbQdfIo=
+go.arpabet.com/storage v1.5.0/go.mod h1:HrC5vpN2mPbpTpTUGauL9Uv8e+atgVwOFHPzrfXAygQ=
 go.arpabet.com/value v1.0.0 h1:CuemEncgIytMOi0pnlLZfyjVA3lkE+54EwvDffsIOcM=
 go.arpabet.com/value v1.0.0/go.mod h1:kZf5d/tpKhf+wiGMYn1gubm6ESLka7XBLnqxkKe+34Y=
 go.etcd.io/bbolt v1.3.3/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
