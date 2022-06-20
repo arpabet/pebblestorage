@@ -15,7 +15,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/rogpeppe/go-internal v1.8.1 // indirect
 	github.com/shopspring/decimal v1.3.1 // indirect
-	go.arpabet.com/storage v1.5.0
+	go.arpabet.com/storage v1.5.1
 	go.arpabet.com/value v1.0.0
 	golang.org/x/crypto v0.0.0-20220131195533-30dcbda58838 // indirect
 	golang.org/x/exp v0.0.0-20220205015713-f5f519d967d6 // indirect
