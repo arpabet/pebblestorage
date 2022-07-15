@@ -22,7 +22,7 @@ require (
 	github.com/shopspring/decimal v1.3.1 // indirect
 	github.com/sirupsen/logrus v1.8.1 // indirect
 	go.arpabet.com/beans v1.6.0 // indirect
-	go.arpabet.com/storage v1.6.0
+	go.arpabet.com/storage v1.7.0
 	go.arpabet.com/value v1.1.0
 	go.opentelemetry.io/otel/internal/metric v0.26.0 // indirect
 	go.opentelemetry.io/otel/sdk v1.3.0 // indirect
